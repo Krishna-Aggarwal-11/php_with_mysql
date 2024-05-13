@@ -16,8 +16,8 @@
         </div>
         <div class="card-body">
             <h5 class="card-title"><?php  echo $row->title ; ?></h5>
-            <p class="card-text"><?php echo substr($row->body,0,85) ; ?></p>
-            <a href="show.php?id=<?php  echo $row->id ; ?>" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text"><?php echo substr($row->body,0,85)."..." ; ?></p>
+            <a href="show.php?id=<?php  echo $row->id ; ?>" class="btn btn-primary">Show more</a>
         </div>
     </div>
     <br>

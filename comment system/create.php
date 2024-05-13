@@ -2,6 +2,11 @@
 <?php require "config.php" ; ?>
 
 <?php 
+
+    if(!isset($_SESSION['username'])) {
+        header("Location: index.php");
+    }
+
     if (isset($_POST['submit'])) {
         if ($_POST['title'] == '' || $_POST['body'] == '') {
             echo '<p class="alert alert-danger">All fields are required</p>';
