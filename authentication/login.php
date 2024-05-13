@@ -4,6 +4,12 @@
 
 <?php
 
+if (isset($_SESSION['username'])) {
+  
+  header("Location: index.php");
+}
+
+
 if (isset($_POST['submit'])) {
 
   if ($_POST["email"] == "" || $_POST["password"] == "") {
@@ -21,10 +27,16 @@ if (isset($_POST['submit'])) {
     if ($login->rowCount() > 0) {
 
       if (password_verify($password, $data['password'])) {
-        echo "Login success";
+
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['email'] = $data['email'];
+
+        header("Location: index.php");
       } else {
         echo "Login failed";
       }
+    }else {
+      echo "Login failed";
     }
   }
 }

@@ -1,3 +1,5 @@
 <?php require "includes/header.php"; ?>
-hello form index
+<?php 
+    echo "hello " 
+?>
 <?php require "includes/footer.php"; ?>
