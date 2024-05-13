@@ -15,6 +15,7 @@
                 ':body' => $body,
                 ':username' => $username
             ]);
+            header("Location: index.php");
         }
     }
 
