@@ -11,8 +11,11 @@ if (isset($_GET['id'])) {
     $onePost->execute();
 
     $post = $onePost->fetch(PDO::FETCH_OBJ);
-    
 }
+
+$comments  = $conn->query("SELECT * FROM comments WHERE post_id = $id");
+$comments->execute();
+$comment = $comments->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <div class="row">
@@ -48,11 +51,24 @@ if (isset($_GET['id'])) {
     
 
     <button name="submit" id="submit" class="w-100 btn mt-4 btn-lg btn-primary" type="submit">Create Comment</button>
+    <div id="msg" class="nothing"></div>
     
 
   </form>
+  
 </div>
 
+<div class="row">
+    <?php foreach ($comment as $singlecomment) : ?>
+    <div class="card my-4">
+        <div class="card-body">
+            <h5 class="card-title"><?php echo $singlecomment->username; ?></h5>
+            <p class="card-text"><?php echo $singlecomment->comment; ?></p>
+
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
 
 <?php require "includes/footer.php"; ?>
 
@@ -68,9 +84,20 @@ if (isset($_GET['id'])) {
                 data: formdata,
                 success: function(){
                     // alert("success");
-                    // $('#comment').text(null);
+                    $('#comment').text(null);
+                    $('#username').text(null);
+                    $('#post_id').text(null);
+
+                    $("#msg").html("Added Successfully").toggleClass("alert alert-success bg-success text-white mt-3");
+                    fetch();    
                 }
-            })
-        })
-    })
+            });
+        });
+
+        function fetch(){
+            setInterval(function(){
+                $("body").load("show.php?id=<?php echo $_GET['id']; ?>");
+            },4000)
+        }
+    });
 </script>
