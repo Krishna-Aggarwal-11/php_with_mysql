@@ -4,6 +4,7 @@
 
 
 <?php
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $onePost = $conn->query("SELECT * FROM posts WHERE id = $id");
@@ -25,4 +26,51 @@ if (isset($_GET['id'])) {
     </div>
 </div>
 
+
+<div class="row">
+  <form method="POST" id="comment-form" >
+    <div class="form-floating">
+      <input name="username" type="hidden" value="<?php echo $_SESSION['username']; ?>" class="form-control" id="username" >
+    </div>
+    <div class="form-floating">
+      <input name="post_id" type="hidden" value="<?php echo $post->id; ?>" class="form-control" id="post_id" >
+    </div>
+    
+
+    <div class="form-floating mt-4">
+      <textarea rows="9" name="comment" class="form-control" placeholder="comment"
+      id="comment">
+      
+      </textarea>
+      <label for="floatingInput">Comment </label>
+    </div>
+
+    
+
+    <button name="submit" id="submit" class="w-100 btn mt-4 btn-lg btn-primary" type="submit">Create Comment</button>
+    
+
+  </form>
+</div>
+
+
 <?php require "includes/footer.php"; ?>
+
+<script>
+    $(document).ready(function(){
+        $(document).on('submit', function(e){
+            e.preventDefault();
+            var formdata = $('#comment-form').serialize()+"&submit=submit";
+
+            $.ajax({
+                type: 'POST',
+                url: 'insert-comment.php',
+                data: formdata,
+                success: function(){
+                    // alert("success");
+                    // $('#comment').text(null);
+                }
+            })
+        })
+    })
+</script>
