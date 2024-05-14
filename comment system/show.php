@@ -52,6 +52,7 @@ $comment = $comments->fetchAll(PDO::FETCH_OBJ);
 
     <button name="submit" id="submit" class="w-100 btn mt-4 btn-lg btn-primary" type="submit">Create Comment</button>
     <div id="msg" class="nothing"></div>
+    <div id="delete-msg" class="nothing"></div>
     
 
   </form>
@@ -64,7 +65,7 @@ $comment = $comments->fetchAll(PDO::FETCH_OBJ);
         <div class="card-body">
             <h5 class="card-title"><?php echo $singlecomment->username; ?></h5>
             <p class="card-text"><?php echo $singlecomment->comment; ?></p>
-
+            <button id="delete-btn" class="btn btn-danger mt-3" value="<?php echo $singlecomment->id; ?>" >Delete</button>
         </div>
     </div>
     <?php endforeach; ?>
@@ -94,10 +95,32 @@ $comment = $comments->fetchAll(PDO::FETCH_OBJ);
             });
         });
 
+        $(document).on('click', '#delete-btn', function(e){
+            e.preventDefault();
+            var id = $(this).val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'delete-comment.php',
+                data: {
+                    delete : "delete",
+                    id:id
+                },
+                success: function(){
+                    // alert("success");
+                   
+
+                    $("#delete-msg").html("Deleted Successfully").toggleClass("alert alert-success bg-success text-white mt-3");
+                    fetch();    
+                }
+            });
+        });
+
         function fetch(){
             setInterval(function(){
                 $("body").load("show.php?id=<?php echo $_GET['id']; ?>");
-            },4000)
+            },2000)
         }
     });
+    
 </script>
