@@ -17,9 +17,11 @@ $comments  = $conn->query("SELECT * FROM comments WHERE post_id = $id");
 $comments->execute();
 $comment = $comments->fetchAll(PDO::FETCH_OBJ);
 
-$ratings  = $conn->query("SELECT * FROM ratings WHERE post_id = $id");
-$ratings->execute();
-$rating = $ratings->fetch(PDO::FETCH_OBJ);
+if (isset($_SESSION['user_id'])) {
+    $ratings  = $conn->query("SELECT * FROM ratings WHERE post_id = $id AND user_id = '$_SESSION[user_id]'");
+    $ratings->execute();
+    $rating = $ratings->fetch(PDO::FETCH_OBJ);
+}
 ?>
 
 <div class="row">
@@ -32,7 +34,10 @@ $rating = $ratings->fetch(PDO::FETCH_OBJ);
 
                 <div class="my-rating"></div>
                 <input id="rating" type="hidden" name="rating" value="">
-                <input id="psot_id" type="hidden" name="post_id" value="<?php echo $post->id; ?>">
+                <input id="post_id" type="hidden" name="post_id" value="<?php echo $post->id; ?>">
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <input id="user_id" type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                <?php endif; ?>
             </form>
         </div>
     </div>
@@ -138,35 +143,35 @@ $rating = $ratings->fetch(PDO::FETCH_OBJ);
 
         $(".my-rating").starRating({
             starSize: 25,
-            initialRating: <?php 
-                if (isset($rating->rating)) {
-                    echo $rating->rating;
-                }else{
-                    echo 0;
-                }
-            ?>,
+            initialRating: <?php
+                            if (isset($rating->rating) && isset($rating->user_id) && $rating->user_id == $_SESSION['user_id']) {
+                                echo $rating->rating;
+                            } else {
+                                echo 0;
+                            }
+                            ?>,
             callback: function(currentRating, $el) {
                 $("#rating").val(currentRating);
 
                 $(".my-rating").click(function(e) {
-                  e.preventDefault();
-                  
-                  var $formdata = $('#form-data').serialize()+"&insert=insert";
+                    e.preventDefault();
 
-                  $.ajax({
-                    type: 'POST',
-                    url: 'insert-rating.php',
-                    data: $formdata,
-                    success: function() {
-                      alert("success");
-                    }
+                    var $formdata = $('#form-data').serialize() + "&insert=insert";
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'insert-rating.php',
+                        data: $formdata,
+                        success: function() {
+                            //   alert("success");
+                        }
+                    })
                 })
-            })
-        }
+            }
 
-    });
-    
-    
+        });
+
+
 
     });
 </script>
