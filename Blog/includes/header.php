@@ -34,6 +34,9 @@ session_start();
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0" style="margin-left:550px ;">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search_data" aria-label="Search">
+        </form>
 
 
         <ul class="navbar-nav ms-auto">
