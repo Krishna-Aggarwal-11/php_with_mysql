@@ -33,7 +33,7 @@
 
         <div class="row">
           <div class="col-md-9 mb-md-0 mb-5 mx-auto">
-            <form action="cv.php" method="POST" style="margin-top: 120px">
+            <form action="cv.php" method="POST" style="margin-top: 120px" enctype="multipart/form-data">
               <div class="md-form mb-0">
                 <label for="name" class="">Name</label>
 

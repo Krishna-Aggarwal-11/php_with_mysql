@@ -4,6 +4,17 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $mpdf = new \Mpdf\Mpdf();
 
+if(isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $dob = $_POST['dob'];
+    
+
+}
+
+
 $html = "
 <!DOCTYPE html>
 <html lang='en'>
@@ -11,19 +22,19 @@ $html = "
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>DM Zaczek - personal details</title>
+    <title>$name</title>
     <link href='style.css' rel='stylesheet'>
     <script defer src='js/script.js'></script>
 </head>
 
 <body contenteditable>
     <h1 class='naglowek'>Curriculum Vitae</h1>
-    <h2>Mohamed Hassan</h2>
+    <h2>$name</h2>
     <p><button class='przycisk'>Remove contact details</button></p>
     <h3 class='naglowek3'>Contact details</h3>
-    <p class='condet'>Adress: Rijpstraat 32, 4812 TC Breda<br>Phone: <strong>+31 648377910</strong><br>E-mail:
-        example@yahoo.com<br>
-        Date of birth: 15-08-1988</p>
+    <p class='condet'>Adress: <strong>$address</strong><br>Phone: <strong>$phone</strong><br>E-mail:
+        <strong>$email</strong><br>
+        Date of birth: <strong>$dob</strong></p>
     <img width='200' height='200' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSppkoKsaYMuIoNLDH7O8ePOacLPG1mKXtEng&usqp=CAU' alt='Daniel Żaczek'>
     <p><i>Open to innovative solutions, technological novelties, incurable perfectionist, ready to take on new
             challenges, <br>always willing to collaborate. Looking for an international employer where I can use my
