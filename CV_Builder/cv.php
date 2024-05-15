@@ -39,7 +39,6 @@ $html = "
 <body contenteditable>
     <h1 class=''>Curriculum Vitae</h1>
     <h2>$name</h2>
-    <p><button class='przycisk'>Remove contact details</button></p>
     <h3 class=''>Contact details</h3>
     <p class='condet'>Adress: <strong>$address</strong><br>Phone: <strong>$phone</strong><br>E-mail:
         <strong>$email</strong><br>
