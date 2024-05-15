@@ -24,7 +24,7 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div id="search-data"></div>
+
 <div class="row">
     <div class="card mt-4">
         <div class="card-body">

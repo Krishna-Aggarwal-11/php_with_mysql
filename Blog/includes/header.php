@@ -70,3 +70,4 @@ session_start();
     </div>
   </nav>
   <div class="container marketing">
+  <div id="search-data" class=" mt-4"></div>

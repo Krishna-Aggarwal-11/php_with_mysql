@@ -48,7 +48,7 @@
 
         function fetch() {
             setInterval(function() {
-                $("body").load("show.php?id=<?php echo $_GET['id']; ?>");
+                $("body").load("show.php?id=<?php if(isset($_GET['id'])) echo $_GET['id']; else echo 'nothing'  ?>");
             }, 2000)
         }
 
@@ -85,6 +85,8 @@
         $("#search_data").keyup(function() {
             var search = $(this).val();
             if (search != '') {
+                $(".row").css("display", "block");
+                $("main").css("display", "block");
                 $.ajax({
                     url: "search.php",
                     type: "POST",
@@ -97,6 +99,8 @@
                 })
             }else{
                 $("#search-data").css("display", "none");
+                $(".row").css("display", "block");
+                $("main").css("display", "block");
             }
             })
     });
