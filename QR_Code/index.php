@@ -1,45 +1,52 @@
-<?php
- 
-require __DIR__ . '/vendor/autoload.php';
+<!DOCTYPE html>
+<html lang="en">
 
-use Endroid\QrCode\Color\Color;
-use Endroid\QrCode\Encoding\Encoding;
-use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Label\Label;
-use Endroid\QrCode\Logo\Logo;
-use Endroid\QrCode\RoundBlockSizeMode;
-use Endroid\QrCode\Writer\PngWriter;
-use Endroid\QrCode\Writer\ValidationException;
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            overflow: hidden;
+        }
 
-$writer = new PngWriter();
+        .margin {
+            margin-top: 100px
+        }
 
-// Create QR code
-$qrCode = QrCode::create('Life is too short to be generating QR codes')
-    ->setEncoding(new Encoding('UTF-8'))
-    ->setErrorCorrectionLevel(ErrorCorrectionLevel::Low)
-    ->setSize(300)
-    ->setMargin(10)
-    ->setRoundBlockSizeMode(RoundBlockSizeMode::Margin)
-    ->setForegroundColor(new Color(0, 0, 0))
-    ->setBackgroundColor(new Color(255, 255, 255));
+        .head-margin {
+            margin-top: 160px;
+            margin-bottom: -80px
+        }
+    </style>
+    <title>QR Generator</title>
+</head>
 
-// Create generic logo
+<body>
+
+    <div class="conatiner">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <h3 class="text-center head-margin">Generate a QR</h3>
+                <form class="mb-4 card p-2 margin" method="POST" action="qr-process.php">
+                    <div class="input-group">
+                        <input type="text" name="qr" class="form-control" placeholder="enter code here">
+                        <div class="input-group-append">
+                            <button type="submit" name="submit" class="btn btn-success">Generate</button>
+                        </div>
+                    </div>
+                </form>
 
 
-// Create generic label
-$label = Label::create('Label')
-    ->setTextColor(new Color(255, 0, 0));
+            </div>
+        </div>
+    </div>
 
 
-$result = $writer->write($qrCode , null, $label);
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
-// Validate the result
-$writer->validateResult($result, 'Life is too short to be generating QR codes');
+</body>
 
-$result->saveToFile(__DIR__.'/qrcode.png');
-
-// Or output it directly to the browser
-header('Content-Type: '.$result->getMimeType());
-echo $result->getString();
-
+</html>
